@@ -15,14 +15,14 @@ console.log(localStorage);
 
 const time = () => {
     let dateTime = new Date();
-    document.getElementById("time").innerHTML = `${dateTime.getHours()} : ${addZero(dateTime.getMinutes())} : ${addZero(dateTime.getSeconds())}`;
+    document.getElementById("time").innerHTML = `${addZero(dateTime.getHours())} : ${addZero(dateTime.getMinutes())} : ${addZero(dateTime.getSeconds())}`;
     document.getElementById("date").innerHTML = `${weekList[dateTime.getDay()]} ${dateTime.getDate()} ${monthList[Number(dateTime.getMonth() + 1)]}`;
     setTimeout(time, 1000)
   }
 const addZero = (item) =>  String(item).length < 2 ?`0${item}`:item;
 const welcome = () => {
     const dateTime = new Date();
-    if ((dateTime.getHours() > 0 && dateTime.getHours() < 6) || dateTime.getHours() === 24) welcomeLine.innerHTML = 'goodnight';
+    if ((dateTime.getHours() >= 0 && dateTime.getHours() < 6) || dateTime.getHours() === 24) welcomeLine.innerHTML = 'goodnight';
     else {
         if (dateTime.getHours() > 6) welcomeLine.innerHTML = 'good morning ';
         if (dateTime.getHours() > 12) welcomeLine.innerHTML = 'good day ';
@@ -49,13 +49,25 @@ const writeLine = (from, to) => {
 
 const backgroundImg = () => {
     const dateTime = new Date();
-    let folder = '';
-        if ((dateTime.getHours() > 0 && dateTime.getHours() < 6) || dateTime.getHours() === 24) folder = 'night';
-    else {
-        if (dateTime.getHours() > 6) folder = 'morning';
-        if (dateTime.getHours() > 12) folder = 'day';
-        if (dateTime.getHours() > 18) folder = 'evening';
-    }
+    let folder = ''; let numFon = 1;
+        if ((dateTime.getHours() >= 0 && dateTime.getHours() < 6) || dateTime.getHours() === 24) {
+            folder = 'night';
+            numFon = masFone[0];
+        }
+        else {
+            if (dateTime.getHours() > 6) {
+                folder = 'morning';
+                numFon = masFone[1];
+            }
+            if (dateTime.getHours() > 12) {
+                folder = 'day';
+                numFon = masFone[2];
+            }
+            if (dateTime.getHours() > 18) {
+                folder = 'evening';
+                numFon = masFone[3];
+            }
+        }
 
     document.body.style.backgroundImage = `url('/assets/images/${folder}/${getRandomInt().toString().padStart(2,0)}.jpg')`;
     document.body.style.backgroundRepeat = 'no-repeat';
