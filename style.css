@@ -1,0 +1,60 @@
+/* CSS Reset */
+*
+{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    font-family: 'Comic Neue', cursive;
+}
+
+main,
+.userBox,
+.taskBox {
+    display: flex;
+}
+
+main {
+    flex-direction: column;
+    align-items: center;
+}
+
+.userBox {
+    /* margin-top: 15%; */
+}
+
+.timeBox {
+    text-align: center;
+}
+
+input {
+    background: none;
+    margin-left: 10px;
+    border: 0 none;
+}
+
+
+
+header {
+    background-color: azure;
+}
+main {
+    background-color: gainsboro;
+}
+footer {
+    background-color: ghostwhite;
+}

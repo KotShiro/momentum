@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momentum</title>
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="userBox">
+            <h4>Hi</h4>
+            <p>
+                <input  type="text" name="userName" id="userName" placeholder="what is your name?">
+                <button onclick="writeLine('input#userName','header > div > p')">here is my name</button>
+            </p>
+        </div>
+    </header>
+    <main>
+        <div class="timeBox">
+            <div id="time">
+                12:60:15
+            </div>
+            <div id="date">
+                20 oct. 2020
+            </div>
+        </div>
+        <div class="taskBox">
+            <p>
+                <input type="text" name="taskToday" id="taskToday" placeholder="Is your goal for today?">
+                <button onclick="writeLine('input#taskToday','div.taskBox > p')">enter task</button>
+            </p> 
+        </div>
+    </main>
+    <footer>Nikita Kovalevich for RSSchool JS Q3</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
