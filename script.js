@@ -69,7 +69,7 @@ const backgroundImg = (newFon) => {
             folder = 'day';
             fonDay <= 20 ? localStorage.setItem('fonDay', Number(fonDay) + 1) : localStorage.setItem('fonDay', 1);
             numFon = localStorage.getItem('fonDay');
-            console.log(`url('/assets/images/${folder}/${fonDay.toString().padStart(2,0)}.jpg')`);
+            console.log(`url('assets/images/${folder}/${fonDay.toString().padStart(2,0)}.jpg')`);
             console.log(numFon);
         }
         if (dateTime.getHours() > 18) {
@@ -77,9 +77,9 @@ const backgroundImg = (newFon) => {
             fonEvening <= 20 ? localStorage.setItem('fonEvening', Number(fonEvening) + 1) : localStorage.setItem('fonEvening', 1);
             numFon = localStorage.getItem('fonEvening');
         }
-        console.log(`url('/assets/images/${folder}/${numFon.toString().padStart(2,0)}.jpg')`);
+        console.log(`url('assets/images/${folder}/${numFon.toString().padStart(2,0)}.jpg')`);
         //setTimeout(1000);
-        document.body.style.backgroundImage = `url('/assets/images/${folder}/${numFon.toString().padStart(2,0)}.jpg')`;
+        document.body.style.backgroundImage = `url('assets/images/${folder}/${numFon.toString().padStart(2,0)}.jpg')`;
         setTimeout(1000);
     }
     else if(standingBg <= 0) {
@@ -100,7 +100,7 @@ const backgroundImg = (newFon) => {
             folder = 'evening';
             numFon = fonEvening;
         }
-        document.body.style.backgroundImage = `url('/assets/images/${folder}/${numFon.toString().padStart(2,0)}.jpg')`;
+        document.body.style.backgroundImage = `url('assets/images/${folder}/${numFon.toString().padStart(2,0)}.jpg')`;
     }
     else if (standingBg > 0) {
         if (dateTime.getHours() >= 0 && dateTime.getHours() < 6) {
@@ -119,7 +119,7 @@ const backgroundImg = (newFon) => {
             folder = 'evening';
             numFon = fonEvening;
         }
-        document.body.style.backgroundImage = `url('/assets/images/${folder}/${standingBg.toString().padStart(2,0)}.jpg')`;
+        document.body.style.backgroundImage = `url('assets/images/${folder}/${standingBg.toString().padStart(2,0)}.jpg')`;
         setTimeout(1000);
     }
     document.body.style.backgroundRepeat = 'no-repeat';
@@ -138,7 +138,7 @@ time();
 // backgroundImg();
 
 
-const base = '/assets/images/';
+const base = 'assets/images/';
 const images = ['01.jpg', '02.jpg', '03.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg'];
 let i = 0;
 
