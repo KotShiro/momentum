@@ -9,7 +9,7 @@ let fonMorning = localStorage.getItem('fonMorning') ? localStorage.getItem('fonM
 let fonDay = localStorage.getItem('fonDay') ? localStorage.getItem('fonDay') : localStorage.setItem('fonDay', 1);
 let fonEvening = localStorage.getItem('fonEvening') ? localStorage.getItem('fonEvening') : localStorage.setItem('fonEvening', 1);
 let numThisFone = localStorage.getItem('numThisFone') ? localStorage.getItem('numThisFone') : localStorage.setItem('numThisFone', 1);
-let standingBg = localStorage.getItem('standingBg') ? localStorage.getItem('standingBg') : localStorage.setItem('standingBg', 1);
+let standingBg = localStorage.getItem('standingBg') ? localStorage.getItem('standingBg') : localStorage.setItem('standingBg', 0);
 
 let nameInput = '';
 let masFone = [fonNight, fonMorning, fonDay, fonEvening];
