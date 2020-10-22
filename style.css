@@ -18,8 +18,9 @@ body {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    transition: background-image 1s ease-in-out;
 
-    font-family: 'Comic Neue', cursive;
+    font-family: 'Sen', sans-serif;
 }
 
 main,
@@ -47,7 +48,16 @@ input {
     border: 0 none;
 }
 
-
+.backgroundСhange {
+    position: absolute;
+    top: 1%;
+    left: 1%;
+}
+.backgroundAuto {
+    position: absolute;
+    top: 5%;
+    left: 1%;
+}
 
 header {
     background-color: azure;
