@@ -7,6 +7,7 @@
 
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="/assets/css/owfont-regular.css">
         <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
     </head>
     <body>
@@ -19,6 +20,7 @@
                     <input  type="text" name="userName" id="userName" placeholder="what is your name?">
                     <button onclick="writeLine('input#userName','header > div > p')">here is my name</button>
                 </p>
+                <div class="city" contenteditable="true">Minsk</div>
             </div>
         </header>
         <main>
@@ -36,8 +38,24 @@
                     <button onclick="writeLine('input#taskToday','div.taskBox > p')">enter task</button>
                 </p>
             </div>
+            <div class="weatherBox">
+                <i class="weather-icon owf"></i>
+                <div class="temperature"></div>
+                <div class="weather-description"></div>
+            </div>
         </main>
-        <footer>Nikita Kovalevich for RSSchool JS Q3</footer>
+        <footer>
+            <figure class="quote">
+                <blockquote>
+                  You were not born a winner, and you were not born a loser. You are what you make yourself be.
+                </blockquote>
+                <figcaption>
+                  Lou Holtz
+                </figcaption>
+              </figure>
+            Nikita Kovalevich for RSSchool JS Q3</footer>
+        <!-- <script type="text/javascript" src="http://ip-jobs.staff-base.spb.ru/ip.cgi"></script> -->
+        <!-- <script type="text/javascript" src="assets/cityList.json"></script> -->
 
         <script src="script.js"></script>
     </body>

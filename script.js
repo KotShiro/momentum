@@ -10,11 +10,37 @@ let fonDay = localStorage.getItem('fonDay') ? localStorage.getItem('fonDay') : l
 let fonEvening = localStorage.getItem('fonEvening') ? localStorage.getItem('fonEvening') : localStorage.setItem('fonEvening', 1);
 let numThisFone = localStorage.getItem('numThisFone') ? localStorage.getItem('numThisFone') : localStorage.setItem('numThisFone', 1);
 let standingBg = localStorage.getItem('standingBg') ? localStorage.getItem('standingBg') : localStorage.setItem('standingBg', 0);
+// function loadJSON(path, success, error)
+// {
+//     var xhr = new XMLHttpRequest();
+//     xhr.onreadystatechange = function()
+//     {
+//         if (xhr.readyState === XMLHttpRequest.DONE) {
+//             if (xhr.status === 200) {
+//                 if (success)
+//                     success(JSON.parse(xhr.responseText));
+//             } else {
+//                 if (error)
+//                     error(xhr);
+//             }
+//         }
+//     };
+//     xhr.open("GET", path, true);
+//     xhr.send();
+//     console.log();
+// }
+// let dareJsonCitys;
+// loadJSON('assets/cityList.json',
+//         function(data) { dareJsonCitys = data; console.log(data); },
+//         function(xhr) { console.error(xhr); }
+// );
 
+// console.log(IP);
 let nameInput = '';
-let masFone = [fonNight, fonMorning, fonDay, fonEvening];
-
 console.log(localStorage);
+// console.log('dareJsonCitys',dareJsonCitys);
+
+
 
 const time = () => {
     let dateTime = new Date();
@@ -51,7 +77,6 @@ const writeLine = (from, to) => {
     localStorage.setItem(val.id, val.value);
     start ();
 }
-
 const backgroundImg = (newFon) => {
     const dateTime = new Date();
     let folder = ''; let numFon = 1;
@@ -69,7 +94,7 @@ const backgroundImg = (newFon) => {
             folder = 'day';
             fonDay <= 20 ? localStorage.setItem('fonDay', Number(fonDay) + 1) : localStorage.setItem('fonDay', 1);
             numFon = localStorage.getItem('fonDay');
-            console.log(`url('assets/images/${folder}/${fonDay.toString().padStart(2,0)}.jpg')`);
+            console.log(url('assets/images/${folder}/${fonDay.toString().padStart(2,0)}.jpg'));
             console.log(numFon);
         }
         if (dateTime.getHours() > 18) {
@@ -77,9 +102,8 @@ const backgroundImg = (newFon) => {
             fonEvening <= 20 ? localStorage.setItem('fonEvening', Number(fonEvening) + 1) : localStorage.setItem('fonEvening', 1);
             numFon = localStorage.getItem('fonEvening');
         }
-        console.log(`url('assets/images/${folder}/${numFon.toString().padStart(2,0)}.jpg')`);
-        //setTimeout(1000);
-        document.body.style.backgroundImage = `url('assets/images/${folder}/${numFon.toString().padStart(2,0)}.jpg')`;
+        console.log(url('assets/images/${folder}/${numFon.toString().padStart(2,0)}.jpg'));
+        document.body.style.backgroundImage = url('assets/images/${folder}/${numFon.toString().padStart(2,0)}.jpg');
         setTimeout(1000);
     }
     else if(standingBg <= 0) {
@@ -133,15 +157,7 @@ const getRandomInt = () => Math.floor(Math.random() * (20 - 1)) + 1;
 start();
 welcome();
 time();
-
-
-// backgroundImg();
-
-
-const base = 'assets/images/';
-const images = ['01.jpg', '02.jpg', '03.jpg', '05.jpg', '06.jpg', '07.jpg', '08.jpg', '09.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg'];
-let i = 0;
-
+/////////////////////////////////////////////// start change bgBodi
 function viewBgImage(data) {
   const body = document.querySelector('body');
   const src = data;
@@ -153,29 +169,93 @@ function viewBgImage(data) {
   };
 }
 function getImage() {
-    const index = i % images.length;
     const dateTime = new Date();
     let folder = '';
     if (dateTime.getHours() >= 0 && dateTime.getHours() < 6)  folder = 'night';
     if (dateTime.getHours() > 6) folder = 'morning';
     if (dateTime.getHours() > 12) folder = 'day';
     if (dateTime.getHours() > 18) folder = 'evening';
-
-  const imageSrc = base + folder + '/' + images[index];
-  viewBgImage(imageSrc);
-  localStorage.setItem('standingBg', index + 1);
-  console.log(imageSrc, images.length+1, i % images.length+1, localStorage.getItem('standingBg'));
-
-  i++;
-  backgroundImg();
-  btn.disabled = true;
-  setTimeout(function() { btn.disabled = false }, 1000);
+    standingBg = localStorage.getItem('standingBg');
+    standingBg < 20 ? localStorage.setItem('standingBg', Number(standingBg) + 1) : localStorage.setItem('standingBg', 1);
+    numFon = localStorage.getItem('standingBg');
+    const imageSrc = `assets/images/${folder}/${addZero(numFon)}.jpg`;
+    console.log(imageSrc);
+    viewBgImage(imageSrc);
+    btn.disabled = true;
+    setTimeout(function() { btn.disabled = false }, 1000);
 }
 const btnAuto = () => {
     localStorage.setItem('standingBg', 0);
+    localStorage.setItem('fonNight', 1);
+    localStorage.setItem('fonMorning', 1);
+    localStorage.setItem('fonDay', 1);
+    localStorage.setItem('fonEvening', 1);
     backgroundImg('new');
 }
 const btn = document.querySelector('.backgroundСhange');
 const btnRes = document.querySelector('.backgroundAuto');
 btn.addEventListener('click', getImage);
 btnRes.addEventListener('click', btnAuto);
+/////////////////////////////////////////////// end change bgBodi
+/////////////////////////////////////////////// start Weather
+const weatherIcon = document.querySelector('.weather-icon');
+const temperature = document.querySelector('.temperature');
+const weatherDescription = document.querySelector('.weather-description');
+const city = document.querySelector('.city');
+
+async function getWeather() {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=en&appid=08f2a575dda978b9c539199e54df03b0&units=metric`;    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
+    weatherIcon.className = 'weather-icon owf';
+    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    temperature.textContent = `${data.main.temp}°C`;
+    weatherDescription.textContent = data.weather[0].description;
+  }
+console.log(getWeather());
+function setCity(event) {
+    if (event.code === 'Enter') {
+      getWeather();
+      city.blur();
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', getWeather);
+  city.addEventListener('keypress', setCity);
+/////////////////////////////////////////////// end Weather
+/////////////////////////////////////////////// start Quote
+// async function getQuote() {
+//     const url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en`;
+//     const res = await fetch(url, {
+//         headers: {
+//             'X-Requested-With': 'XMLHttpRequest'
+//         }
+//       });
+//     const data = await res.json();
+//     console.log(data.quoteText);
+// }
+// console.log(getQuote());
+
+
+
+// если смена цитаты у вас не работает, вероятно, исчерпался лимит API. в консоли ошибка 403
+// скопируйте код себе и запустите со своего компьютера
+const blockquote = document.querySelector('blockquote');
+const figcaption = document.querySelector('figcaption');
+// const btn = document.querySelector('.btn');
+
+// если в ссылке заменить lang=en на lang=ru, цитаты будут на русском языке
+// префикс https://cors-anywhere.herokuapp.com используем для доступа к данным с других сайтов если браузер возвращает ошибку Cross-Origin Request Blocked
+async function getQuote() {
+  const url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en`;
+  const res = await fetch(url);
+  const data = await res.json();
+
+  blockquote.textContent = data.quoteText;
+  figcaption.textContent = data.quoteAuthor;
+}
+document.addEventListener('DOMContentLoaded', getQuote);
+btn.addEventListener('click', getQuote);
+
+/////////////////////////////////////////////// start Quote
+
