@@ -137,9 +137,6 @@ const backgroundImg = (newFon) => {
 
 const getRandomInt = () => Math.floor(Math.random() * (20 - 1)) + 1;
 
-start();
-welcome();
-time();
 /////////////////////////////////////////////// start change bgBodi
 function viewBgImage(data) {
   const body = document.querySelector('body');
@@ -178,11 +175,7 @@ function getImage() {
         standingBg < 20 ? localStorage.setItem('standingEvening', Number(standingBg) + 1) : localStorage.setItem('standingEvening', 1);
         standingBg = localStorage.getItem('standingEvening');
     }
-    // standingBg = localStorage.getItem('standingBg');
-    // standingBg < 20 ? localStorage.setItem('standingBg', Number(standingBg) + 1) : localStorage.setItem('standingBg', 1);
-    // standingBg  <= 0 ? standingBg = 1 : standingBg;
     const imageSrc = `assets/images/${folder}/${addZero(standingBg)}.jpg`;
-    console.log(imageSrc);
     viewBgImage(imageSrc);
     btn.disabled = true;
     setTimeout(function() { btn.disabled = false }, 1000);
@@ -192,15 +185,10 @@ const btnAuto = () => {
     localStorage.setItem('standingMorning', 0);
     localStorage.setItem('standingDay', 0);
     localStorage.setItem('standingEvening', 0);
-
-        // standingNight standingMorning standingDay standingEvening
-
     localStorage.setItem('fonNight', 1);
     localStorage.setItem('fonMorning', 1);
     localStorage.setItem('fonDay', 1);
     localStorage.setItem('fonEvening', 1);
-    
-    console.log('fonEvening:', localStorage.getItem('fonEvening'),'standingBg:', localStorage.getItem('standingBg'));
     backgroundImg('old');
 }
 const btn = document.querySelector('.backgroundСhange');
@@ -211,22 +199,29 @@ btnRes.addEventListener('click', btnAuto);
 /////////////////////////////////////////////// start Weather
 const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
+const wind = document.querySelector('.wind');
+
 const weatherDescription = document.querySelector('.weather-description');
 const city = document.querySelector('.city');
 
 async function getWeather() {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.textContent}&lang=en&appid=08f2a575dda978b9c539199e54df03b0&units=metric`;    const res = await fetch(url);
     const data = await res.json();
-    console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
+    if (data.cod !== 200) {
+        document.querySelector('.city').innerText = localStorage.getItem('city');
+        return alert(`Something went wrong  \_(  -_-)_/`);
+    }
     weatherIcon.className = 'weather-icon owf';
     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
     temperature.textContent = `${data.main.temp}°C`;
     weatherDescription.textContent = data.weather[0].description;
+    wind.textContent = `${data.wind.speed} m/second`;
+    
     localStorage.setItem('city', document.querySelector('.city').innerText);
   }
 // console.log(getWeather());
 function setCity(event) {
-    if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+    if (event.code === 'Enter' || event.code === 'NumpadEnter' || event.keyCode == 9 || event.keyCode == 13) {
       getWeather();
       city.blur();
     }
@@ -262,11 +257,10 @@ const yourName = document.querySelector('.yourName');
 
 async function getYourName() {
     localStorage.setItem('yourName', document.querySelector('.yourName').innerText);
-    console.log(localStorage.getItem('yourName'));
 }
 
 function setYourName(event) {
-    if ((event.code === 'Enter' || event.code === 'NumpadEnter') && document.querySelector('.yourName').innerText !== '') {
+    if ((event.code === 'Enter' || event.code === 'NumpadEnter' || event.keyCode == 9 || event.keyCode == 13) && document.querySelector('.yourName').innerText !== '') {
         getYourName();
         yourName.blur();
     }
@@ -279,11 +273,10 @@ const taskToday = document.querySelector('.taskToday');
 
 async function getTaskToday() {
     localStorage.setItem('taskToday', document.querySelector('.taskToday').innerText);
-    console.log(localStorage.getItem('taskToday'));
 }
 
 function setTaskToday(event) {
-    if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+    if (event.code === 'Enter' || event.code === 'NumpadEnter' || event.keyCode == 9 || event.keyCode == 13) {
         getTaskToday();
         taskToday.blur();
     }
@@ -296,6 +289,11 @@ taskToday.addEventListener('keypress', setTaskToday);
 function rangeBlur() {
     var rng = document.querySelector('#blur');
     localStorage.setItem('rangeBlur', rng.value);
-    console.log( rng.value, `'blur(${rng.value}px)'`);
     document.body.style.backdropFilter = 'blur(' + String(rng.value) + 'px)';
 }
+
+
+
+start();
+welcome();
+time();

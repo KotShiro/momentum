@@ -30,7 +30,8 @@ body {
 main,
 .userBox,
 .taskBox,
-.quoteBox {
+.quoteBox,
+.weatherParam {
     display: flex;
 }
 
@@ -59,10 +60,19 @@ div,blockquote,figcaption, input {
     text-align: center;
 }
 
+.weatherParam > div {
+    margin: 1px;
+    padding: 5px;
+    border: 1px solid #818181;
+    border-radius: 1px;
+    box-shadow: 1px 1px 20px rgb(43 43 43 / 30%);
+}
+
 .btnBox {
     display: flex;
     flex-direction: column;
     position: absolute;
+    
     top: 1%;
     left: 1%;
 }
@@ -143,6 +153,11 @@ button:hover:after{
 button:hover:before {transition: 0s ease opacity 0s, .2s ease height, .2s ease width .2s;}
 button:hover:after {transition: 0s ease opacity .4s, .2s ease height .4s , .2s ease width .6s;}
 button:hover {background: rgba(255,255,255,.2);}
+button:active {
+    color: rgba(0, 0, 0, 0.603);
+    background: rgba(255, 255, 255, 0.603)
+}
+button:disabled {background: rgba(255, 255, 255, 0.377)}
 
 /* контейнер */
 input[type=range] {
@@ -200,6 +215,36 @@ input[type=range] {
         align-items: center;
         background-color: #ffffff7d;
         width: 100%;
+    }
+    body {
+        font-size: 1.5em;
+    }
+    header {
+        display: none;
+    }
+    .btnBox {
+        display: flex;
+        position: relative;
+        align-self: flex-start;
+    }
+}
+@media screen and (max-width: 800px) {
+    main, .quoteBox {
+        flex-direction: column;
+        align-items: center;
+        background-color: #ffffff7d;
+        width: 100%;
+    }
+    body {
+        font-size: 1.2em;
+    }
+    header {
+        display: none;
+    }
+    .btnBox {
+        display: flex;
+        position: relative;
+        align-self: center;
     }
 }
 
