@@ -12,6 +12,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+
+header {
+    min-height: 20%;
+}
 body {
     height: 100vh;
     display: flex;
@@ -25,46 +29,177 @@ body {
 
 main,
 .userBox,
-.taskBox {
+.taskBox,
+.quoteBox {
     display: flex;
 }
 
-main {
+main, .quoteBox {
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    background-color: #ffffff7d;
+    width: 50%;
 }
 
-.userBox {
-    /* margin-top: 15%; */
+.goalText {
+    min-width: 89px;
+}
+
+div,blockquote,figcaption, input {
+    margin: 5px;
+}
+
+.inputText {
+    min-width: 100px;
+    word-break: break-all;
 }
 
 .timeBox {
     text-align: center;
 }
 
-input {
-    background: none;
-    margin-left: 10px;
-    border: 0 none;
-}
-
-.backgroundСhange {
+.btnBox {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 1%;
     left: 1%;
 }
-.backgroundAuto {
-    position: absolute;
-    top: 5%;
-    left: 1%;
+
+main {
+    min-height: 35%;
+}
+.quoteBox {
+    height: 20%;
 }
 
-header {
-    background-color: azure;
+[contenteditable][placeholder]:empty:before {
+    content: attr(placeholder);
+    position: absolute;
+    color: #676767;
+    background-color: transparent;
+    text-shadow: 1px 1px 1px rgb(43 43 43 / 90%);
 }
-main {
-    background-color: gainsboro;
+
+.weatherBox {
+    text-align: center;
 }
-footer {
-    background-color: ghostwhite;
+
+#time {
+    font-size: 2.5em;
 }
+
+#date {
+    font-size: 0.9em;
+}
+
+button {
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px 5px;
+    position: relative;
+    color: white;
+    border: 1px solid rgba(255,255,255,.4);
+    background: none;
+    font-size: 0.7em;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 1px rgb(0 0 0 / 55%);
+    box-shadow: 2px 3px 10px rgb(0 0 0 / 50%);
+}
+button:before,
+button:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  box-sizing: border-box;
+}
+button:before {
+  bottom: 0;
+  left: 0;
+  border-left: 1px solid white;
+  border-top: 1px solid white;
+  transition: 0s ease opacity .8s, .2s ease width .4s, .2s ease height .6s;
+}
+button:after {
+  top: 0;
+  right: 0;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  transition: 0s ease opacity .4s, .2s ease width , .2s ease height .2s;
+}
+button:hover:before,
+button:hover:after{
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+}
+button:hover:before {transition: 0s ease opacity 0s, .2s ease height, .2s ease width .2s;}
+button:hover:after {transition: 0s ease opacity .4s, .2s ease height .4s , .2s ease width .6s;}
+button:hover {background: rgba(255,255,255,.2);}
+
+/* контейнер */
+input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 0;
+    box-shadow: 2px 3px 10px rgb(0 0 0 / 50%);
+    background:#cccccc6b;
+    overflow: hidden;
+    }
+    
+    /* Линия-ндикатор для Firefox */
+    
+    input[type=range]::-moz-range-track {
+    background: none;
+    border: none;
+    }
+    
+    /* ползунок в Firefox */
+    
+    input[type=range]::-moz-range-thumb {
+    -moz-appearance: none;
+    border: 2px solid #818181;
+    box-shadow:
+    -13px 0 #8484849e, -26px 0 #8484849e, -39px 0 #8484849e,
+    -52px 0 #8484849e, -65px 0 #8484849e, -78px 0 #8484849e,
+    -91px 0 #8484849e, -104px 0 #8484849e, -117px 0 #8484849e,
+    -130px 0 #8484849e, -143px 0 #8484849e, -156px 0 #8484849e,
+    -169px 0 #8484849e, -182px 0 #8484849e, -195px 0 #8484849e,
+    -208px 0 #8484849e, -221px 0 #8484849e, -234px 0 #8484849e,
+    -247px 0 #8484849e, -260px 0 #8484849e;
+    }
+    
+    /* ползунок в Хроме */
+    
+    input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width:20px;
+    height:20px;
+    border: 2px solid #818181;
+    background: #fff;
+    box-shadow:
+    -13px 0 #8484849e, -26px 0 #8484849e, -39px 0 #8484849e,
+    -52px 0 #8484849e, -65px 0 #8484849e, -78px 0 #8484849e,
+    -91px 0 #8484849e, -104px 0 #8484849e, -117px 0 #8484849e,
+    -130px 0 #8484849e, -143px 0 #8484849e, -156px 0 #8484849e,
+    -169px 0 #8484849e, -182px 0 #8484849e, -195px 0 #8484849e,
+    -208px 0 #8484849e, -221px 0 #8484849e, -234px 0 #8484849e,
+    -247px 0 #8484849e, -260px 0 #8484849e;
+    }
+
+@media screen and (max-width: 800px) {
+    main, .quoteBox {
+        flex-direction: column;
+        align-items: center;
+        background-color: #ffffff7d;
+        width: 100%;
+    }
+}
+

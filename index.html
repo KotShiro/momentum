@@ -11,19 +11,21 @@
         <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
     </head>
     <body>
-        <button class="backgroundСhange">background change</button>
-        <button class="backgroundAuto">background auto</button>
+        <div class="btnBox">
+            <button class="backgroundСhange">background change</button>
+            <button class="backgroundAuto">background auto</button>
+            <button class="quoteChange">quote change</button>
+            <input type="range" id="blur" min="0" max="5" value="0" step="1" oninput="rangeBlur()">
+        </div>
         <header>
-            <div class="userBox">
-                <h4>Hi</h4>
-                <p>
-                    <input  type="text" name="userName" id="userName" placeholder="what is your name?">
-                    <button onclick="writeLine('input#userName','header > div > p')">here is my name</button>
-                </p>
-                <div class="city" contenteditable="true">Minsk</div>
-            </div>
         </header>
         <main>
+            <div class="userBox">
+                <div class="welcome">
+                    <p>Hi</p>
+                </div>
+                <div class="yourName inputText" contenteditable placeholder="Your name?"></div>
+            </div>
             <div class="timeBox">
                 <div id="time">
                     12:60:15
@@ -33,30 +35,24 @@
                 </div>
             </div>
             <div class="taskBox">
-                <p>
-                    <input type="text" name="taskToday" id="taskToday" placeholder="Is your goal for today?">
-                    <button onclick="writeLine('input#taskToday','div.taskBox > p')">enter task</button>
-                </p>
+                <div class="goalText">Goal today:</div>
+                <div class="taskToday inputText" contenteditable placeholder="Is your goal for today?"></div>
             </div>
             <div class="weatherBox">
-                <i class="weather-icon owf"></i>
+                <div class="city inputText" contenteditable placeholder="You from?">Minsk</div>
+                <i style="font-size: 4em;" class="weather-icon owf"></i>
                 <div class="temperature"></div>
                 <div class="weather-description"></div>
             </div>
         </main>
-        <footer>
-            <figure class="quote">
-                <blockquote>
-                  You were not born a winner, and you were not born a loser. You are what you make yourself be.
-                </blockquote>
-                <figcaption>
-                  Lou Holtz
-                </figcaption>
-              </figure>
-            Nikita Kovalevich for RSSchool JS Q3</footer>
-        <!-- <script type="text/javascript" src="http://ip-jobs.staff-base.spb.ru/ip.cgi"></script> -->
-        <!-- <script type="text/javascript" src="assets/cityList.json"></script> -->
-
+        <figure class="quoteBox">
+            <blockquote>
+                You were not born a winner, and you were not born a loser. You are what you make yourself be.
+            </blockquote>
+            <figcaption>
+                Lou Holtz
+            </figcaption>
+        </figure>
         <script src="script.js"></script>
     </body>
 </html>

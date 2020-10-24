@@ -1,75 +1,53 @@
 const weekList = { 1: 'Monday', 2: 'Tuesday', 3: 'Wednesday', 4: 'Thursday', 5: 'Friday', 6: 'Saturday', 7: 'Sunday'};
 const monthList = { 1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July', 8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December'};
-const fonList = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20'];
 
-welcomeLine = document.querySelector('header > div > h4');
+welcomeLine = document.querySelector('.welcome');
 
 let fonNight = localStorage.getItem('fonNight') ? localStorage.getItem('fonNight') : localStorage.setItem('fonNight', 1);
 let fonMorning = localStorage.getItem('fonMorning') ? localStorage.getItem('fonMorning') : localStorage.setItem('fonMorning', 1);
 let fonDay = localStorage.getItem('fonDay') ? localStorage.getItem('fonDay') : localStorage.setItem('fonDay', 1);
 let fonEvening = localStorage.getItem('fonEvening') ? localStorage.getItem('fonEvening') : localStorage.setItem('fonEvening', 1);
 let numThisFone = localStorage.getItem('numThisFone') ? localStorage.getItem('numThisFone') : localStorage.setItem('numThisFone', 1);
-let standingBg = localStorage.getItem('standingBg') ? localStorage.getItem('standingBg') : localStorage.setItem('standingBg', 0);
-// function loadJSON(path, success, error)
-// {
-//     var xhr = new XMLHttpRequest();
-//     xhr.onreadystatechange = function()
-//     {
-//         if (xhr.readyState === XMLHttpRequest.DONE) {
-//             if (xhr.status === 200) {
-//                 if (success)
-//                     success(JSON.parse(xhr.responseText));
-//             } else {
-//                 if (error)
-//                     error(xhr);
-//             }
-//         }
-//     };
-//     xhr.open("GET", path, true);
-//     xhr.send();
-//     console.log();
-// }
-// let dareJsonCitys;
-// loadJSON('assets/cityList.json',
-//         function(data) { dareJsonCitys = data; console.log(data); },
-//         function(xhr) { console.error(xhr); }
-// );
 
-// console.log(IP);
+let standingNight = localStorage.getItem('standingNight') ? localStorage.getItem('standingNight') : localStorage.setItem('standingNight', 0);
+let standingMorning = localStorage.getItem('standingMorning') ? localStorage.getItem('standingMorning') : localStorage.setItem('standingMorning', 0);
+let standingDay = localStorage.getItem('standingDay') ? localStorage.getItem('standingDay') : localStorage.setItem('standingDay', 0);
+let standingEvening = localStorage.getItem('standingEvening') ? localStorage.getItem('standingEvening') : localStorage.setItem('standingEvening', 0);
+
 let nameInput = '';
 console.log(localStorage);
-// console.log('dareJsonCitys',dareJsonCitys);
-
-
 
 const time = () => {
     let dateTime = new Date();
     document.getElementById("time").innerHTML = `${addZero(dateTime.getHours())} : ${addZero(dateTime.getMinutes())} : ${addZero(dateTime.getSeconds())}`;
     document.getElementById("date").innerHTML = `${weekList[dateTime.getDay()]} ${dateTime.getDate()} ${monthList[Number(dateTime.getMonth() + 1)]}`;
-    if (dateTime.getMinutes() === 59 && dateTime.getSeconds() === 10 ) backgroundImg('new');
+    if (dateTime.getMinutes() === 5 && dateTime.getSeconds() === 20 ) backgroundImg('new');
+    if (dateTime.getMinutes() === 5 && dateTime.getSeconds() === 20 ) getQuote();
     setTimeout(time, 1000)
   }
 const addZero = (item) =>  String(item).length < 2 ?`0${item}`:item;
 const welcome = () => {
     const dateTime = new Date();
-    if ((dateTime.getHours() >= 0 && dateTime.getHours() < 6) || dateTime.getHours() === 24) welcomeLine.innerHTML = 'goodnight';
+    if ((dateTime.getHours() >= 0 && dateTime.getHours() < 6)) welcomeLine.innerHTML = 'Goodnight';
     else {
-        if (dateTime.getHours() > 6) welcomeLine.innerHTML = 'good morning ';
-        if (dateTime.getHours() > 12) welcomeLine.innerHTML = 'good day ';
-        if (dateTime.getHours() > 18) welcomeLine.innerHTML = 'good evening ';
+        if (dateTime.getHours() > 6) welcomeLine.innerHTML = 'Good morning';
+        if (dateTime.getHours() > 12) welcomeLine.innerHTML = 'Good day';
+        if (dateTime.getHours() > 18) welcomeLine.innerHTML = 'Good evening';
     }
 }
 
 const start = () => {
-    if (localStorage.getItem('userName')) document.querySelector('header > div > p').innerHTML = `&ensp; ${localStorage.getItem('userName')} <button onclick="editLine('header > div > p','userName','${localStorage.getItem('userName')}')">edit text</button>`;
-    if (localStorage.getItem('taskToday')) document.querySelector('div.taskBox > p').innerHTML = `Your goal today: ${localStorage.getItem('taskToday')} <button onclick="editLine('div.taskBox > p','taskToday','${localStorage.getItem('taskToday')}')">edit text</button>`;
+    localStorage.getItem('yourName') ? document.querySelector('.yourName').innerHTML = localStorage.getItem('yourName') : document.querySelector('.yourName').innerHTML = '' ;
+    localStorage.getItem('taskToday') ? document.querySelector('.taskToday').innerHTML = localStorage.getItem('taskToday') : document.querySelector('.taskToday').innerHTML = '' ;
+    localStorage.getItem('city') ? document.querySelector('.city').innerHTML = localStorage.getItem('city') : document.querySelector('.city').innerHTML = 'Minsk' ;
+    if(localStorage.getItem('rangeBlur')){
+        document.body.style.backdropFilter = 'blur(' + String(localStorage.getItem('rangeBlur')) + 'px)';
+        document.querySelector('#blur').value = localStorage.getItem('rangeBlur');
+    }
+    else {
+        document.body.style.backdropFilter = 'blur(0px)';
+    } 
     backgroundImg('old');
-}
-
-const editLine = (to, name, locLet) => {
-    document.querySelector(to).innerHTML = `
-        <input type="text" name="${name}" id="${name}" value="${locLet}">
-        <button onclick="writeLine('input#${name}','${to}')">enter task</button>`;
 }
 
 const writeLine = (from, to) => {
@@ -80,72 +58,77 @@ const writeLine = (from, to) => {
 const backgroundImg = (newFon) => {
     const dateTime = new Date();
     let folder = ''; let numFon = 1;
-    if (newFon === 'new' && standingBg <= 0) {
-        console.log('new')
+
+    if (localStorage.getItem('standingNight') > 0 || localStorage.getItem('standingMorning') > 0 || localStorage.getItem('standingDay') > 0 || localStorage.getItem('standingEvening') > 0 ) {
+        console.log( 'standingNight ',localStorage.getItem('standingNight') , 'standingMorning ', localStorage.getItem('standingMorning') , 'standingDay ', localStorage.getItem('standingDay'), 'standingEvening ', localStorage.getItem('standingEvening'));
+        localStorage.getItem('standingNight') > 0 ? localStorage.getItem('standingNight') : localStorage.setItem('standingNight', 1);
+        localStorage.getItem('standingMorning') > 0 ? localStorage.getItem('standingMorning') : localStorage.setItem('standingMorning', 1);
+        localStorage.getItem('standingDay') > 0 ? localStorage.getItem('standingDay') : localStorage.setItem('standingDay', 1);
+        localStorage.getItem('standingEvening') > 0 ? localStorage.getItem('standingEvening') : localStorage.setItem('standingEvening', 1);
         if (dateTime.getHours() >= 0 && dateTime.getHours() < 6) {
             folder = 'night';
-            numFon = fonNight <= 20 ? localStorage.setItem('fonNight', Number(fonNight) + 1) : localStorage.setItem('fonNight', 1);
+            numFonSts = localStorage.getItem('standingNight');
         }
         if (dateTime.getHours() > 6) {
             folder = 'morning';
-            numFon = fonMorning <= 20 ? localStorage.setItem('fonMorning', Number(fonMorning) + 1) : localStorage.setItem('fonMorning', 1);
+            numFonSts = localStorage.getItem('standingMorning');
         }
         if (dateTime.getHours() > 12) {
             folder = 'day';
-            fonDay <= 20 ? localStorage.setItem('fonDay', Number(fonDay) + 1) : localStorage.setItem('fonDay', 1);
-            numFon = localStorage.getItem('fonDay');
-            console.log(url('assets/images/${folder}/${fonDay.toString().padStart(2,0)}.jpg'));
-            console.log(numFon);
+            numFonSts = localStorage.getItem('standingDay');
         }
         if (dateTime.getHours() > 18) {
             folder = 'evening';
-            fonEvening <= 20 ? localStorage.setItem('fonEvening', Number(fonEvening) + 1) : localStorage.setItem('fonEvening', 1);
-            numFon = localStorage.getItem('fonEvening');
-        }
-        console.log(url('assets/images/${folder}/${numFon.toString().padStart(2,0)}.jpg'));
-        document.body.style.backgroundImage = url('assets/images/${folder}/${numFon.toString().padStart(2,0)}.jpg');
+            numFonSts = localStorage.getItem('standingEvening');
+        } 
+        document.body.style.backgroundImage = `url('assets/images/${folder}/${numFonSts.toString().padStart(2,0)}.jpg')`;
         setTimeout(1000);
-    }
-    else if(standingBg <= 0) {
-        console.log('old')
-        if (dateTime.getHours() >= 0 && dateTime.getHours() < 6) {
-            folder = 'night';
-            numFon = fonNight;
+    }   
+    else {
+        if (newFon === 'new') {
+            console.log('new')
+            if (dateTime.getHours() >= 0 && dateTime.getHours() < 6) {
+                folder = 'night';
+                numFon = fonNight <= 20 ? localStorage.setItem('fonNight', Number(fonNight) + 1) : localStorage.setItem('fonNight', 1);
+            }
+            if (dateTime.getHours() > 6) {
+                folder = 'morning';
+                numFon = fonMorning <= 20 ? localStorage.setItem('fonMorning', Number(fonMorning) + 1) : localStorage.setItem('fonMorning', 1);
+            }
+            if (dateTime.getHours() > 12) {
+                folder = 'day';
+                fonDay <= 20 ? localStorage.setItem('fonDay', Number(fonDay) + 1) : localStorage.setItem('fonDay', 1);
+                numFon = localStorage.getItem('fonDay');
+            }
+            if (dateTime.getHours() > 18) {
+                folder = 'evening';
+                fonEvening <= 20 ? localStorage.setItem('fonEvening', Number(fonEvening) + 1) : localStorage.setItem('fonEvening', 1);
+                numFon = localStorage.getItem('fonEvening');
+            }
+            setTimeout(1000);
         }
-        if (dateTime.getHours() > 6) {
-            folder = 'morning';
-            numFon = fonMorning;
-        }
-        if (dateTime.getHours() > 12) {
-            folder = 'day';
-            numFon = fonDay;
-        }
-        if (dateTime.getHours() > 18) {
-            folder = 'evening';
-            numFon = fonEvening;
+        if(newFon === 'old') {
+            if (dateTime.getHours() >= 0 && dateTime.getHours() < 6) {
+                folder = 'night';
+                numFon = localStorage.getItem('fonNight');
+            }
+            if (dateTime.getHours() > 6) {
+                folder = 'morning';
+                numFon = localStorage.getItem('fonMorning');
+            }
+            if (dateTime.getHours() > 12) {
+                folder = 'day';
+                numFon = localStorage.getItem('fonDay');
+            }
+            if (dateTime.getHours() > 18) {
+                folder = 'evening';
+                numFon = localStorage.getItem('fonEvening');
+                console.log(numFon);
+            }
         }
         document.body.style.backgroundImage = `url('assets/images/${folder}/${numFon.toString().padStart(2,0)}.jpg')`;
     }
-    else if (standingBg > 0) {
-        if (dateTime.getHours() >= 0 && dateTime.getHours() < 6) {
-            folder = 'night';
-            numFon = fonNight;
-        }
-        if (dateTime.getHours() > 6) {
-            folder = 'morning';
-            numFon = fonMorning;
-        }
-        if (dateTime.getHours() > 12) {
-            folder = 'day';
-            numFon = fonDay;
-        }
-        if (dateTime.getHours() > 18) {
-            folder = 'evening';
-            numFon = fonEvening;
-        }
-        document.body.style.backgroundImage = `url('assets/images/${folder}/${standingBg.toString().padStart(2,0)}.jpg')`;
-        setTimeout(1000);
-    }
+    
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundPosition = 'center';
@@ -171,26 +154,54 @@ function viewBgImage(data) {
 function getImage() {
     const dateTime = new Date();
     let folder = '';
-    if (dateTime.getHours() >= 0 && dateTime.getHours() < 6)  folder = 'night';
-    if (dateTime.getHours() > 6) folder = 'morning';
-    if (dateTime.getHours() > 12) folder = 'day';
-    if (dateTime.getHours() > 18) folder = 'evening';
-    standingBg = localStorage.getItem('standingBg');
-    standingBg < 20 ? localStorage.setItem('standingBg', Number(standingBg) + 1) : localStorage.setItem('standingBg', 1);
-    numFon = localStorage.getItem('standingBg');
-    const imageSrc = `assets/images/${folder}/${addZero(numFon)}.jpg`;
+    if (dateTime.getHours() >= 0 && dateTime.getHours() < 6)  {
+        folder = 'night';
+        standingBg = localStorage.getItem('standingNight');
+        standingBg < 20 ? localStorage.setItem('standingNight', Number(standingBg) + 1) : localStorage.setItem('standingNight', 1);
+        standingBg = localStorage.getItem('standingNight');
+    }
+    if (dateTime.getHours() > 6 && dateTime.getHours() < 12) {
+        folder = 'morning';
+        standingBg = localStorage.getItem('standingMorning');
+        standingBg < 20 ? localStorage.setItem('standingMorning', Number(standingBg) + 1) : localStorage.setItem('standingMorning', 1);
+        standingBg = localStorage.getItem('standingMorning');
+    }
+    if (dateTime.getHours() > 12 && dateTime.getHours() < 18) {
+        folder = 'day';
+        standingBg = localStorage.getItem('standingDay');
+        standingBg < 20 ? localStorage.setItem('standingDay', Number(standingBg) + 1) : localStorage.setItem('standingDay', 1);
+        standingBg = localStorage.getItem('standingDay');
+    }
+    if (dateTime.getHours() > 18 && dateTime.getHours() < 24){
+        folder = 'evening';
+        standingBg = localStorage.getItem('standingEvening');
+        standingBg < 20 ? localStorage.setItem('standingEvening', Number(standingBg) + 1) : localStorage.setItem('standingEvening', 1);
+        standingBg = localStorage.getItem('standingEvening');
+    }
+    // standingBg = localStorage.getItem('standingBg');
+    // standingBg < 20 ? localStorage.setItem('standingBg', Number(standingBg) + 1) : localStorage.setItem('standingBg', 1);
+    // standingBg  <= 0 ? standingBg = 1 : standingBg;
+    const imageSrc = `assets/images/${folder}/${addZero(standingBg)}.jpg`;
     console.log(imageSrc);
     viewBgImage(imageSrc);
     btn.disabled = true;
     setTimeout(function() { btn.disabled = false }, 1000);
 }
 const btnAuto = () => {
-    localStorage.setItem('standingBg', 0);
+    localStorage.setItem('standingNight', 0);
+    localStorage.setItem('standingMorning', 0);
+    localStorage.setItem('standingDay', 0);
+    localStorage.setItem('standingEvening', 0);
+
+        // standingNight standingMorning standingDay standingEvening
+
     localStorage.setItem('fonNight', 1);
     localStorage.setItem('fonMorning', 1);
     localStorage.setItem('fonDay', 1);
     localStorage.setItem('fonEvening', 1);
-    backgroundImg('new');
+    
+    console.log('fonEvening:', localStorage.getItem('fonEvening'),'standingBg:', localStorage.getItem('standingBg'));
+    backgroundImg('old');
 }
 const btn = document.querySelector('.backgroundСhange');
 const btnRes = document.querySelector('.backgroundAuto');
@@ -211,10 +222,11 @@ async function getWeather() {
     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
     temperature.textContent = `${data.main.temp}°C`;
     weatherDescription.textContent = data.weather[0].description;
+    localStorage.setItem('city', document.querySelector('.city').innerText);
   }
-console.log(getWeather());
+// console.log(getWeather());
 function setCity(event) {
-    if (event.code === 'Enter') {
+    if (event.code === 'Enter' || event.code === 'NumpadEnter') {
       getWeather();
       city.blur();
     }
@@ -222,21 +234,6 @@ function setCity(event) {
 
   document.addEventListener('DOMContentLoaded', getWeather);
   city.addEventListener('keypress', setCity);
-/////////////////////////////////////////////// end Weather
-/////////////////////////////////////////////// start Quote
-// async function getQuote() {
-//     const url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en`;
-//     const res = await fetch(url, {
-//         headers: {
-//             'X-Requested-With': 'XMLHttpRequest'
-//         }
-//       });
-//     const data = await res.json();
-//     console.log(data.quoteText);
-// }
-// console.log(getQuote());
-
-
 
 // если смена цитаты у вас не работает, вероятно, исчерпался лимит API. в консоли ошибка 403
 // скопируйте код себе и запустите со своего компьютера
@@ -247,15 +244,58 @@ const figcaption = document.querySelector('figcaption');
 // если в ссылке заменить lang=en на lang=ru, цитаты будут на русском языке
 // префикс https://cors-anywhere.herokuapp.com используем для доступа к данным с других сайтов если браузер возвращает ошибку Cross-Origin Request Blocked
 async function getQuote() {
-  const url = `https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en`;
+  const url = `https://favqs.com/api/qotd`;
   const res = await fetch(url);
   const data = await res.json();
 
-  blockquote.textContent = data.quoteText;
-  figcaption.textContent = data.quoteAuthor;
+  blockquote.textContent = data.quote.body;
+  figcaption.textContent = data.quote.author;;
 }
+const btnQuoteChange = document.querySelector('.quoteChange');
 document.addEventListener('DOMContentLoaded', getQuote);
-btn.addEventListener('click', getQuote);
+btnQuoteChange.addEventListener('click', getQuote);
 
 /////////////////////////////////////////////// start Quote
 
+const yourName = document.querySelector('.yourName');
+
+
+async function getYourName() {
+    localStorage.setItem('yourName', document.querySelector('.yourName').innerText);
+    console.log(localStorage.getItem('yourName'));
+}
+
+function setYourName(event) {
+    if ((event.code === 'Enter' || event.code === 'NumpadEnter') && document.querySelector('.yourName').innerText !== '') {
+        getYourName();
+        yourName.blur();
+    }
+  }
+
+document.addEventListener('DOMContentLoaded', getYourName);
+yourName.addEventListener('keypress', setYourName);
+////////////////////////
+const taskToday = document.querySelector('.taskToday');
+
+async function getTaskToday() {
+    localStorage.setItem('taskToday', document.querySelector('.taskToday').innerText);
+    console.log(localStorage.getItem('taskToday'));
+}
+
+function setTaskToday(event) {
+    if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+        getTaskToday();
+        taskToday.blur();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', getTaskToday);
+taskToday.addEventListener('keypress', setTaskToday);
+
+///////////////////////////////////////////////
+function rangeBlur() {
+    var rng = document.querySelector('#blur');
+    localStorage.setItem('rangeBlur', rng.value);
+    console.log( rng.value, `'blur(${rng.value}px)'`);
+    document.body.style.backdropFilter = 'blur(' + String(rng.value) + 'px)';
+}
